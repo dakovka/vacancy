@@ -1,15 +1,19 @@
 <?php
 namespace Vacancy\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
+use Gedmo\Translatable\Translatable;
 
 /**
  * Vacancy.
  *
  * @ORM\Entity(repositoryClass="VacancyRepository")
  * @ORM\Table(name="vacancy")
+ * @Gedmo\TranslationEntity(class="Vacancy\Entity\VacancyTranslation")
  */
-class Vacancy
+class Vacancy implements Translatable
 {
     /**
      * @ORM\Id
@@ -19,11 +23,13 @@ class Vacancy
     protected $id;
     /**
      * @ORM\Column(type="string")
+     * @Gedmo\Translatable
      * @var string
      **/
     protected $name;
     /**
      * @ORM\Column(type="string")
+     * @Gedmo\Translatable
      * @var string
      **/
     protected $description;
@@ -32,6 +38,19 @@ class Vacancy
      * @var Department
      **/
     protected $department;
+    /**
+     * @ORM\OneToMany(targetEntity="VacancyTranslation", mappedBy="object", cascade={"persist", "remove"})
+     * @var VacancyTranslation[]
+     **/
+    protected $translations;
+
+    /**
+     * Constructor.
+     */
+    public function __construct()
+    {
+        $this->translations = new ArrayCollection();
+    }
 
     /**
      * Returns id.
@@ -104,6 +123,30 @@ class Vacancy
     public function getDescription()
     {
         return $this->description;
+    }
+
+    /**
+     * Adds translation.
+     * @param VacancyTranslation $translation
+     * @return $this
+     */
+    public function addTranslation(VacancyTranslation $translation)
+    {
+        if (!$this->translations->contains($translation)) {
+            $this->translations[] = $translation;
+            $translation->setObject($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * Returns translations.
+     * @return VacancyTranslation[]
+     */
+    public function getTranslations()
+    {
+        return $this->translations;
     }
 }
  

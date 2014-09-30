@@ -1,5 +1,14 @@
 <?php
 
+$form = $this->form;
+$form->prepare();
+
+echo $this->form()->openTag($form);
+echo $this->formRow($form->get('Department'));
+echo $this->formRow($form->get('Locale'));
+echo $this->formSubmit($form->get('submit'));
+echo $this->form()->closeTag();
+
 foreach ($vacancies as $vacancy) {
     echo '<h3>' . $vacancy->getId() . '. ' . $vacancy->getName() . '</h3><p> ' . $vacancy->getDescription() . '</p>';
 }

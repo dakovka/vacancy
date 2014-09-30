@@ -30,6 +30,13 @@ return array(
     ),
 
     'doctrine' => array(
+        'eventmanager' => array(
+            'orm_default' => array(
+                'subscribers' => array(
+                    'Gedmo\Translatable\TranslatableListener',
+                ),
+            ),
+        ),
 
         'driver' => array(
             'vacancy_annotation_driver' => array(
