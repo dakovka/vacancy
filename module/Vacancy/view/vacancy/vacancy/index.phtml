@@ -1,0 +1,5 @@
+<?php
+
+foreach ($vacancies as $vacancy) {
+    echo '<h3>' . $vacancy->getId() . '. ' . $vacancy->getName() . '</h3><p> ' . $vacancy->getDescription() . '</p>';
+}

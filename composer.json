@@ -1,4 +1,7 @@
 {
+    "autoload": {
+        "psr-0": { "Vacancy": "module/Vacancy/src/" }
+    },
     "require": {
         "php": ">=5.3.3",
         "zendframework/zendframework": "2.3.*",
