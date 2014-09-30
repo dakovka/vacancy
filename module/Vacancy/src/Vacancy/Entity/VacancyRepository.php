@@ -10,6 +10,12 @@ use Gedmo\Translatable\TranslatableListener;
  */
 class VacancyRepository extends EntityRepository
 {
+    /**
+     * Returns list of vacancies sorted by department and locale
+     * @param null $departmentId
+     * @param string $locale
+     * @return Vacancy[]
+     */
     public function getByDepartmentInLocale($departmentId = null, $locale = 'en_us')
     {
         $dql = 'SELECT v FROM Vacancy\Entity\Vacancy v ' .
